@@ -52,7 +52,12 @@ export function useAuth() {
       const result = await signInAction(email, password);
 
       if (result.success) {
-        await handlePostSignIn();
+        try {
+          await handlePostSignIn();
+        } catch (navError) {
+          console.error("Post sign-in navigation error:", navError);
+          router.push("/");
+        }
       }
 
       return result;
@@ -67,7 +72,12 @@ export function useAuth() {
       const result = await signUpAction(email, password);
 
       if (result.success) {
-        await handlePostSignIn();
+        try {
+          await handlePostSignIn();
+        } catch (navError) {
+          console.error("Post sign-up navigation error:", navError);
+          router.push("/");
+        }
       }
 
       return result;

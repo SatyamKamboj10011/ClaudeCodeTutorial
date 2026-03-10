@@ -76,6 +76,7 @@ export function SignUpForm({ onSuccess }: SignUpFormProps) {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
           disabled={isLoading}
+          minLength={8}
         />
       </div>
 
