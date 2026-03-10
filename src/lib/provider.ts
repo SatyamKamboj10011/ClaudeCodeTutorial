@@ -1,5 +1,6 @@
 import { anthropic } from "@ai-sdk/anthropic";
 import { google } from "@ai-sdk/google";
+import { createGroq } from "@ai-sdk/groq";
 import {
   LanguageModelV1,
   LanguageModelV1StreamPart,
@@ -508,8 +509,15 @@ export default function App() {
 }
 
 export function getLanguageModel() {
+  const groqKey = process.env.GROQ_API_KEY;
   const googleKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
+
+  if (groqKey && groqKey.trim() !== "") {
+    console.log("Using Groq provider");
+    const groq = createGroq({ apiKey: groqKey });
+    return groq("llama-3.3-70b-versatile");
+  }
 
   if (googleKey && googleKey.trim() !== "") {
     console.log("Using Google Gemini provider");
